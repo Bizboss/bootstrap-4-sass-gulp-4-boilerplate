@@ -15,7 +15,7 @@ var gulp = require('gulp'),
 
 // Pug templates
 gulp.task('html', function buildHTML() {
-    return gulp.src('pug-templates/**/*.pug')
+    return gulp.src(['pug-templates/**/*.pug', '!pug-templates/includes/*.pug'])
       .pipe(pug({pretty: true, basedir: 'pug-templates/' }))
       .pipe(gulp.dest('./'));
 });

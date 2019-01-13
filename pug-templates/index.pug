@@ -1,0 +1,34 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(name='description', content='')
+        meta(name='author', content='')
+        link(rel='icon', href='favicon.ico')
+        title Bootstrap Stater v4
+        // Icons for this template
+        link(href='assets/fonts/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+        // Stylesheet
+        // build:css
+        link(href='assets/css/app.css', rel='stylesheet')
+        // endbuild
+    body
+        include includes/navbar
+        main.container(role='main')
+            .jumbotron.text-center
+                img(src='assets/img/logo.png')
+                h1 Bootstrap 4 Starter Template
+                p.lead This example is a quick bootstrap starter template.
+                h3 Uses now pug templates
+                a.btn.btn-lg.btn-primary(href='https://getbootstrap.com/docs/4.2/getting-started/introduction/', role='button', target='_blank') View Bootstrap 4.2 Docs »
+        //
+          Bootstrap core JavaScript
+          ==================================================
+        // Placed at the end of the document so the pages load faster
+        script(src='assets/js/vendor/jquery.slim.min.js')
+        script(src='assets/js/vendor/popper.min.js')
+        script(src='assets/js/vendor/bootstrap.min.js')
+        // build:js
+        script(src='assets/js/app.js')
+        // endbuild

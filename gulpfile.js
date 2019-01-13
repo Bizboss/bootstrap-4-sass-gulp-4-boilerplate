@@ -9,7 +9,16 @@ var gulp = require('gulp'),
   merge = require('merge-stream'),
   htmlreplace = require('gulp-html-replace'),
   autoprefixer = require('gulp-autoprefixer'),
-  browserSync = require('browser-sync').create();
+  browserSync = require('browser-sync').create(),
+  pug = require('gulp-pug');
+
+
+// Pug templates
+gulp.task('html', function buildHTML() {
+    return gulp.src('pug-templates/**/*.pug')
+      .pipe(pug({pretty: true, basedir: 'pug-templates/' }))
+      .pipe(gulp.dest('./'));
+});
 
 // Clean task
 gulp.task('clean', function() {
@@ -52,7 +61,7 @@ gulp.task('vendor:build', function() {
     .pipe(gulp.dest('./dist/assets/js/vendor'));
   var fontStream = gulp.src(['./assets/fonts/font-awesome/**/*.*']).pipe(gulp.dest('./dist/assets/fonts/font-awesome'));
   return merge (jsStream, fontStream);
-})
+});
 
 // Copy Bootstrap SCSS(SASS) from node_modules to /assets/scss/bootstrap
 gulp.task('bootstrap:scss', function() {
@@ -119,12 +128,20 @@ gulp.task('dev', function browserDev(done) {
     browserSync.reload();
     done();
   }));
+
+  // Pug html
+  // gulp.watch(['*.pug', 'pug-templates/*.pug'], gulp.series('html', function jsBrowserReload (done) {
+  gulp.watch(['pug-templates/**/*.pug'], gulp.series('html', function jsBrowserReload (done) {
+      browserSync.reload();
+      done();
+  }));
+
   gulp.watch(['*.html']).on('change', browserSync.reload);
   done();
 });
 
 // Build task
-gulp.task("build", gulp.series(gulp.parallel('css:minify', 'js:minify', 'vendor'), 'vendor:build', function copyAssets() {
+gulp.task("build", gulp.series(gulp.parallel('html', 'css:minify', 'js:minify', 'vendor'), 'vendor:build', function copyAssets() {
   return gulp.src([
     '*.html',
     'favicon.ico',
